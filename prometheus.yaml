@@ -40,6 +40,10 @@ spec:
               name: prometheus-config
             - mountPath: /prometheus
               name: prometheus-data
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 500m
       volumes:
         - name: prometheus-data
           persistentVolumeClaim:
