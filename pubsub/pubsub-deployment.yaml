@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pubsub
+  name: pubsub
+  namespace: rabbitmq
+spec:
+  selector:
+    matchLabels:
+      app: pubsub
+  template:
+    metadata:
+      labels:
+        app: pubsub
+    spec:
+      containers:
+        - name: pubsub
+          image: gcr.io/google.com/cloudsdktool/google-cloud-cli:515.0.0
+          imagePullPolicy: IfNotPresent
+          command: ["gcloud", "beta", "emulators", "pubsub", "start", "--project", "$(PROJECT_ID)", "--host-port", "$(PUBSUB_EMULATOR_HOST)"]
+          env:
+            - name: PROJECT_ID
+              value: test-project
+            - name: PUBSUB_EMULATOR_HOST
+              value: localhost:8085
+          ports:
+            - containerPort: 8085
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 500m
