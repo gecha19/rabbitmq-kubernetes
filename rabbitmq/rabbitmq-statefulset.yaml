@@ -34,6 +34,9 @@ spec:
           - name: metrics
             protocol: TCP
             containerPort: 15692
+          - name: stream
+            protocol: TCP
+            containerPort: 5552
         livenessProbe:
           exec:
             command: ["rabbitmq-diagnostics", "status"]
@@ -52,6 +55,8 @@ spec:
             value: admin
           - name: RABBITMQ_DEFAULT_PASS
             value: admin
+          - name: RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS
+            value: -rabbitmq_stream advertised_host localhost
       volumes:
         - name: config-volume
           configMap:

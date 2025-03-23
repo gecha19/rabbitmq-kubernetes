@@ -23,5 +23,10 @@ spec:
      port: 15692
      targetPort: 15692
      nodePort: 32672
+   - name: stream
+     protocol: TCP
+     targetPort: 5552
+     port: 5552
+     nodePort: 30673
   selector:
     app: rabbitmq
