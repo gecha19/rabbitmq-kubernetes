@@ -37,6 +37,12 @@ spec:
           - name: stream
             protocol: TCP
             containerPort: 5552
+          - name: node-discovery
+            protocol: TCP
+            containerPort: 4369
+          - name: inter-node
+            protocol: TCP
+            containerPort: 25672
         livenessProbe:
           exec:
             command: ["rabbitmq-diagnostics", "status"]

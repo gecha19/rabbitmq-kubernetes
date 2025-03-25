@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: rabbitmq
+  name: rabbitmq-headless
+  labels:
+    app: rabbitmq
+spec:
+  type: NodePort
+  ports:
+   - name: node-discovery
+     protocol: TCP
+     port: 4369
+     targetPort: 4369
+   - name: inter-node
+     protocol: TCP
+     port: 25672
+     targetPort: 25672
+  selector:
+    app: rabbitmq
